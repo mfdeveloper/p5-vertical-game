@@ -4,10 +4,12 @@ This is a boilerplate/template to create a vertical infinity game.
 This is used in a
 Master degree on Game Design course of [UBI](https://www.ubi.pt/)
 
-The project structure used here was based in [generator-p5-webpack](https://github.com/janizde/p5-webpack-yeoman-generator) generated with [Yeoman](https://yeoman.io/)
+This project structure used here was based in [generator-p5-webpack](https://github.com/janizde/p5-webpack-yeoman-generator) generated with [Yeoman](https://yeoman.io/)
 
 
 ### Prerequisites
+
+- Install [Git](https://git-scm.com) to clone this repo
 
 - Install [Node](https://nodejs.org). You can use [NVM](https://github.com/nvm-sh/nvm) directly from command line (Linux) or using [Chocolatey](https://chocolatey.org) (Windows)
 
