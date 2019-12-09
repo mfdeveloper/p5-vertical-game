@@ -4,13 +4,13 @@ import { Game } from "./game";
 export class Menu {
 
     setup() {
-        background('yellow');
 
         this.gui = createGui();
         this.btn = createButton("Start", 200, 200);
     }
 
     draw() {
+        background(this.sceneArgs.backgroundColor);
         drawGui();
 
         if (this.btn.isPressed) {

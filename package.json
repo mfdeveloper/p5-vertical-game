@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "p5": "^0.10.2",
+    "p5.gui.variables": "^1.0.1",
     "p5.scenemanager": "^1.0.1",
     "p5.touchgui": "^0.5.2"
   },
