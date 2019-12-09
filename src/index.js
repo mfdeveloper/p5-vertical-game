@@ -1,11 +1,10 @@
 /**
  * This file mix P5 "instance" and "global" mode,
- * using global functios from "sketch.js" and a
+ * using global functions from "sketch.js" and a
  * instance added to `window` object
  * 
  * @see https://github.com/processing/p5.js/wiki/p5.js-overview#instantiation--namespace
  */
-
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
@@ -20,12 +19,11 @@ import * as sketchHooks from './sketch';
 
 const sketch = p => {
     for (const hook in sketchHooks) {
-        if (sketchHooks.hasOwnProperty(hook) 
-            && typeof sketchHooks[hook] == 'function') {
+        if (sketchHooks[hook] == 'function') {
             p[hook] = sketchHooks[hook];
         }
     }
 }
 
-export const p5Instance = new p5(sketch);
-window.p5 = p5Instance;
+const p5Instance = new p5(sketch);
+export default p5Instance;

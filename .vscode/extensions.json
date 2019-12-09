@@ -4,9 +4,9 @@
 
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
-		"wk-j.webpack-progress",
 		"acidic9.p5js-snippets",
-		"garrit.p5canvas"
+		"garrit.p5canvas",
+		"0xorial.webpack-dev-server"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [

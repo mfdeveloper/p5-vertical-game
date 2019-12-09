@@ -6,7 +6,7 @@ const common = require('./webpack.common');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
-const mode = 'production';
+const mode = 'development';
 
 module.exports = merge(common, {
     mode: mode,
@@ -18,12 +18,14 @@ module.exports = merge(common, {
       progress: true,
       openPage: '',
       stats: 'errors-only',
+      hot: true
     },
     plugins:[
       new BrowserSyncPlugin(
         {
           host: 'localhost',
           port: 8080,
+          open: false,
           plugins: ['bs-console-qrcode'],
           // proxy the Webpack Dev Server endpoint
           proxy: 'http://localhost:8100/'
@@ -40,6 +42,7 @@ module.exports = merge(common, {
         NODE_ENV: mode,
         DEBUG: true
       }),
+      new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
         title: 'Dev P5 Webpack'
       })
