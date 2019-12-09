@@ -7,6 +7,7 @@ export class Menu {
 
         this.gui = createGui();
         this.btn = createButton("Start", 200, 200);
+        // comentei
     }
 
     draw() {
