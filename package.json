@@ -4,15 +4,16 @@
   "main": "src/index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
-    "start:prod": "browser-sync start -w --plugins 'bs-console-qrcode' -s 'dist' -f 'dist'",
+    "start:prod": "browser-sync start -w --plugins bs-console-qrcode -s dist -f dist",
     "build": "webpack -p --progress --config webpack.prod.js",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "p5": "^0.10.2",
     "p5.gui.variables": "^1.0.1",
-    "p5.scenemanager": "^1.0.1",
-    "p5.touchgui": "^0.5.2"
+    "p5.scenemanager": "^1.0.4",
+    "p5.touchgui": "^0.5.2",
+    "p5.play": "mfdeveloper/p5.play#v1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",

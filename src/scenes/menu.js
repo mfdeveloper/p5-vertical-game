@@ -16,7 +16,7 @@ export class Menu {
         if (this.btn.isPressed) {
             print(this.btn.label + " is pressed.");
 
-            this.sceneManager.showScene(Game);
+            this.sceneManager.showScene(Game, this.sceneArgs);
         }
     }
 }

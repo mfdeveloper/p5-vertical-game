@@ -6,7 +6,8 @@
 	"recommendations": [
 		"acidic9.p5js-snippets",
 		"garrit.p5canvas",
-		"0xorial.webpack-dev-server"
+		"0xorial.webpack-dev-server",
+		"jeremyljackson.vs-docblock"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
