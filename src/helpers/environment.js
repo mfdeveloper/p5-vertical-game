@@ -14,7 +14,7 @@ export class Environment {
         }
     }
 
-    static showFrame(position = 'leftBottom') {
+    static showFrame(position = 'leftBottom', color = '255') {
         const align = {
             leftBottom: {
                 x: 10,
@@ -23,11 +23,15 @@ export class Environment {
             rightBottom: {
                 x: width - 70,
                 y: height - 10
+            },
+            topRight: {
+                x: width - 70,
+                y: 20
             }
         };
         
         let fps = frameRate();
-        fill(255);
+        fill(color);
         stroke(0);
         text("FPS: " + fps.toFixed(2), align[position].x, align[position].y);
     }

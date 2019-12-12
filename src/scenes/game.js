@@ -1,5 +1,6 @@
  import 'p5.play'
  import { Player } from "../elements/player";
+ import { Platforms } from "../elements/platforms";
 
 export class Game {
 
@@ -13,19 +14,32 @@ export class Game {
 
     preload() {
 
+        this.backgroundImg = loadImage('assets/imgs/scenario/bg-main.png');
+
+        this.platforms = new Platforms();
+        
         this.player.preload();
+        this.platforms.preload();
     }
 
     setup() {
-        this.sceneArgs.backgroundColor = 'white';
+
         this.player.load();
+        
+        camera.position.y = height - 50; 
+        camera.position.x = width / 2;
+
+        this.platforms.drawWalls();
+        this.platforms.draw();
+
     }
 
     draw() {
+        background(this.backgroundImg);
          
-        this.player.sprite.debug = this.sceneArgs.showColliders;
+        this.player.draw(this.sceneArgs);
+        this.platforms.changeConfig(this.sceneArgs)
 
-        background(this.sceneArgs.backgroundColor);
         drawSprites();
     }
 }

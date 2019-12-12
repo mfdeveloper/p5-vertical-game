@@ -11,11 +11,19 @@ let params = {
 const width = 400;
 const height = 3000;
 
+export function preload() {
+
+  // set the global sound formats
+  soundFormats('mp3', 'wav');
+}
+
 export function setup() {
   createCanvas(width, height);
 
   if(Environment.isDev()) {
     let gui = createGuiPanel('Variables GUI');
+
+    params.gui = gui;
     gui.addObject(params);
   }
   
@@ -36,6 +44,10 @@ export function draw() {
 export function drawScene(scene) {
   
   if(Environment.isDev()) {
-    Environment.showFrame();
+    Environment.showFrame('topRight');
   }
+}
+
+export function windowResized() {
+  resizeCanvas(width, windowHeight);
 }
