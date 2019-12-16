@@ -8,8 +8,10 @@ let params = {
   showColliders: true
 };
 
-const width = 400;
-const height = 3000;
+const canvas = {
+  width: 400,
+  height: 3000
+}
 
 export function preload() {
 
@@ -18,7 +20,10 @@ export function preload() {
 }
 
 export function setup() {
-  createCanvas(width, height);
+  if (displayWidth < canvas.width) {
+    canvas.width = displayWidth;
+  }
+  createCanvas(canvas.width, canvas.height);
 
   if(Environment.isDev()) {
     let gui = createGuiPanel('Variables GUI');
@@ -39,7 +44,7 @@ export function draw() {
 /**
  * Called after each `draw()` scene
  *
- * @return  {void}
+ * @return {void}
  */
 export function drawScene(scene) {
   
@@ -49,5 +54,11 @@ export function drawScene(scene) {
 }
 
 export function windowResized() {
-  resizeCanvas(width, windowHeight);
+  let newWidth = 0;
+  if (windowWidth < canvas.width) {
+    newWidth = windowWidth;
+  } else {
+    newWidth = canvas.width;
+  }
+  resizeCanvas(newWidth, windowHeight);
 }
