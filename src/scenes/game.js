@@ -3,6 +3,7 @@ import { Player } from "../elements/player";
 import { Platforms } from "../elements/platforms";
 import { Item } from "../elements/item";
 import { Items } from '../elements/items';
+import { Hud } from '../elements/ui/hud';
 
 export class Game {
 
@@ -14,12 +15,31 @@ export class Game {
             animationsPath: 'assets/imgs/spritesheets/player'
         });
 
-        this.items = new Items();
+        
+        this.hud = new Hud({
+            score: {
+                label: 'Salsichas',
+                width: 20,
+                height: 20
+            },
+            timer: {
+                label: 'Tempo',
+                width: 150,
+                height: 20
+            }
+        });
+
+        this.items = new Items({
+            onCollect: () => {
+                this.hud.scoreValue++
+            }
+        });
 
         this.spines = {
             img: {},
             sprite: null
         }
+
     }
 
     preload() {
@@ -52,6 +72,9 @@ export class Game {
 
     draw() {
         background(this.backgroundImg);
+
+        this.hud.showScore();
+        this.hud.showTimer();
 
         this.player.draw(this);
         this.platforms.changeConfig(this.sceneArgs);

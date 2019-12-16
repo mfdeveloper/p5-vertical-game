@@ -5,7 +5,8 @@ import 'p5.gui.variables';
 
 let params = {
   backgroundColor: '#000',
-  showColliders: true
+  showColliders: true,
+  showFrameRate: true
 };
 
 const canvas = {
@@ -24,17 +25,18 @@ export function setup() {
     canvas.width = displayWidth;
   }
   createCanvas(canvas.width, canvas.height);
+  
+  Environment.init();
 
   if(Environment.isDev()) {
     let gui = createGuiPanel('Variables GUI');
-
-    params.gui = gui;
     gui.addObject(params);
   }
   
   let mgr = new SceneManager();
   mgr.wire();
   mgr.showScene(Menu, params);
+
 }
 
 export function draw() {
@@ -48,9 +50,14 @@ export function draw() {
  */
 export function drawScene(scene) {
   
-  if(Environment.isDev()) {
+  if (!params.showFrameRate) {
+    Environment.hideFrame()
+  }
+  
+  if(Environment.isDev() && params.showFrameRate) {
     Environment.showFrame('topRight');
   }
+
 }
 
 export function windowResized() {
