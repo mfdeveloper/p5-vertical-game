@@ -3,6 +3,12 @@ import { Player } from "./player";
 
 export class Items {
 
+    constructor(events = {
+        onCollect: () => {}
+    }) {
+        Item.onCollect = events.onCollect;
+    }
+
     preload() {
         Item.preload();
     }
@@ -51,7 +57,7 @@ export class Items {
      * @return  {Items}
      */
     checkCollect(player) {
-        player.sprite.overlap(this.group, Item.prototype.onCollect);
+        player.sprite.overlap(this.group, Item.prototype.doCollect);
 
         return this;
     }

@@ -14,6 +14,11 @@ export class Item {
 
         this.config = config;
 
+        if (!Item.onCollect) {
+            
+            Item.onCollect = (player, item) => {};
+        }
+
         const animationParams = [
             config.animation.name
         ].concat(config.animation.frames);
@@ -51,10 +56,10 @@ export class Item {
      * @return  {void}
      */
     checkCollect(player) {
-        player.sprite.overlap(this.group, this.onCollect);
+        player.sprite.overlap(this.group, this.doCollect);
     }
 
-    onCollect(player, item) {
+    doCollect(player, item) {
         //collector is another name for asterisk
         //show the animation
         player.changeAnimation('stretch');
@@ -62,11 +67,14 @@ export class Item {
         //collected is the sprite in the group collectibles that triggered
         //the event
         item.remove();
-        // scoreVal += 1;
 
         if (Item.audio && Item.audio.sfx) {
             
             Item.audio.sfx.collect.play();
+        }
+
+        if (typeof Item.onCollect == 'function') {
+            Item.onCollect(player, item);
         }
     }
 }

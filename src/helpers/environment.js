@@ -1,5 +1,15 @@
 export class Environment {
 
+    static init() {
+
+        if (this.isDev()) {
+
+            this.frameUi = createDiv('FPS: 0');
+            this.frameUi.id = 'frameRate';
+            this.frameUi.style('fontWeight', 'bold');
+        }
+    }
+
     static isDev() {
         return this.isEnv();
     }
@@ -14,7 +24,7 @@ export class Environment {
         }
     }
 
-    static showFrame(position = 'leftBottom', color = '255') {
+    static showFrame(position = 'leftBottom', color = 'white') {
         const align = {
             leftBottom: {
                 x: 10,
@@ -29,10 +39,22 @@ export class Environment {
                 y: 20
             }
         };
-        
-        let fps = frameRate();
-        fill(color);
-        stroke(0);
-        text("FPS: " + fps.toFixed(2), align[position].x, align[position].y);
+
+        if (this.frameUi) {
+
+            let fps = frameRate();
+            this.frameUi.position(align[position].x, align[position].y);
+            this.frameUi.style('color', color);
+            this.frameUi.style('display', 'block');
+
+            this.frameUi.html("FPS: " + fps.toFixed(2));
+        }
+    }
+
+    static hideFrame() {
+        if (this.frameUi) {
+
+            this.frameUi.style('display', 'none');
+        }
     }
 }
