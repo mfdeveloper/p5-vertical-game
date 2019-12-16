@@ -1,10 +1,18 @@
+import { Game } from "../scenes/game";
+import { Items } from "./items";
+
 export class Player {
-    
+
     constructor(config = { width: 50, heigth: 50 }) {
-        
+
         this.config = config;
 
+        if (!this.config.animationsPath) {
+            throw new Error('The parameter "animationsPath" is required to show PLAYER animations');
+        }
+
         this.gravity = 0.24;
+
         this.audio = {
             sfx: {
                 jump: {},
@@ -14,15 +22,23 @@ export class Player {
 
         this.controllers = {
             jump: {
-                speed: -10,
-                key: 'W',
-                angle: 90
+                up: {
+                    speed: -10,
+                    key: 'W',
+                    angle: 90
+                },
+                upAndRight: {
+                    speed: -10,
+                    key: 'D',
+                    angle: 120
+                },
+                upAndLeft: {
+                    speed: -10,
+                    key: 'A',
+                    angle: 60
+                }
             }
         };
-
-        if (!this.config.animationsPath) {
-            throw new Error('The parameter "animationsPath" is required to show PLAYER animations');
-        }
 
         this.animations = {
             idle: {
@@ -39,8 +55,8 @@ export class Player {
         this.animations.idle.obj = this.getAnimation('idle');
 
         // Sound Effects
-        // this.audio.sfx.jump = loadSound('assets/audio/sfx/player/jump.wav');
-        // this.audio.sfx.gameOver = loadSound('assets/audio/sfx/player/gameover.wav');
+        this.audio.sfx.jump = loadSound('assets/audio/sfx/player/jump.wav');
+        this.audio.sfx.gameOver = loadSound('assets/audio/sfx/player/gameover.wav');
     }
 
     load() {
@@ -50,16 +66,47 @@ export class Player {
         this.sprite.setDefaultCollider();
     }
 
-    draw() {
-        this.sprite.velocity.y += this.gravity;
+    /**
+     * Draw
+     *
+     * @param   {Game}  scene  A scene object reference when this method is called
+     *
+     * @return  {void}
+     */
+    draw(scene) {
 
-        this.inputs();
+        this.sceneInteractions(scene);
+
+        this.inputs(scene);
     }
 
     touchEnded() {
         if (mouseY > this.sprite.position.y) {
-            this.jump();
+            this.jump(this.controllers.jump.up);
         }
+    }
+
+    /**
+     * Check player interactions with a scene (limit bounds, spikes to death...)
+     *
+     * @param   {Game}  scene  scene  A scene object reference when this method is called
+     *
+     * @return  {void}
+     */
+    sceneInteractions(scene) {
+
+        if (this.sprite.overlap(scene.platforms.walls)) {
+            if (this.sprite.position.x < width / 2)
+                this.sprite.velocity.x = 0.1;
+            if (this.sprite.position.x > width / 2)
+                this.sprite.velocity.x = -0.1;
+        }
+
+        if (this.sprite.overlap(scene.spines.sprite)) {
+            this.audio.sfx.gameOver.play();
+        }
+
+        this.sprite.collide(scene.platforms.platformsGroup);
     }
 
     getAnimation(name = 'idle') {
@@ -80,15 +127,50 @@ export class Player {
         return loadAnimation.apply({}, imgs);
     }
 
-    inputs() {
+    /**
+     * Verify the player input (keyboard, mouse, joystick...)
+     *
+     * @param  {Game}  scene  scene  A scene object reference when this method is called
+     */
+    inputs(scene) {
 
-        if(keyWentDown(this.controllers.jump.key)){
-           this.jump();
+        if (this.sprite.overlap(scene.platforms.platformsGroup)) {
+
+            this.sprite.velocity.y = 0;
+
+            if (keyWentDown(this.controllers.jump.up.key)) {
+                this.jump(this.controllers.jump.up);
+            }
+
+            if (this.sprite.position.x < (width / 2)) {
+
+                if (keyWentDown(this.controllers.jump.upAndRight.key)) {
+                    this.sprite.velocity.y += this.gravity;
+                    this.jump(this.controllers.jump.upAndRight);
+                }
+            }
+
+            if (this.sprite.position.x > (width / 2)) {
+
+                if (keyWentDown(this.controllers.jump.upAndLeft.key)) {
+                    this.jump(this.controllers.jump.upAndLeft);
+                }
+            }
+
+        } else {
+            this.sprite.velocity.y += this.gravity;
         }
     }
 
-    jump() {
-        this.sprite.addSpeed(this.controllers.jump.speed, this.controllers.jump.angle); 
+    /**
+     * Jump action. Can be many types
+     *
+     * @param   {object}  config  Config of a jump type (up, upAndRight...)
+     *
+     * @return  {void}
+     */
+    jump(config = { speed: 0, key: '', angle: 0 }) {
+        this.sprite.addSpeed(config.speed, config.angle);
         this.audio.sfx.jump.play();
     }
 }
