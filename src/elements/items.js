@@ -28,7 +28,14 @@ export class Items {
                 x: 50,
                 y: height - 760,
                 animation: animation
-            })
+            }),
+            new Item({
+                x: 50,
+                y: height - 760,
+                animation: animation
+            }),
+            
+            
         ];
     }
 

@@ -7,10 +7,10 @@ import { Items } from '../elements/items';
 export class Game {
 
     constructor() {
-
+        
         this.player = new Player({
             width: 50,
-            height: height - 300,
+            height: height + (height/2),
             animationsPath: 'assets/imgs/spritesheets/player'
         });
 
@@ -42,11 +42,12 @@ export class Game {
         this.platforms.drawWalls();
         this.platforms.draw();
 
-        this.spines.sprite = createSprite(200, height - 30);
+        this.spines.sprite = createSprite(200,  height + (height -50));
         this.spines.sprite.addImage(this.spines.img);
         this.spines.sprite.setDefaultCollider();
 
-        camera.position.y = this.spines.sprite.position.y + 600;
+        //camera.position.y = this.spines.sprite.position.y + 600;
+        camera.position.y = this.spines.sprite.position.y -((height/2) -25);
         camera.position.x = width / 2;
     }
 
@@ -60,7 +61,7 @@ export class Game {
                   .changeConfig(this.sceneArgs);
 
         this.spines.sprite.velocity.y = -0.2;
-        camera.position.y = this.spines.sprite.position.y + 600;
+       camera.position.y = this.spines.sprite.position.y -((height/2) -25);
 
         this.spines.sprite.overlap(this.platforms.platformsGroup, (spines, platforms) => {
             platforms.remove();

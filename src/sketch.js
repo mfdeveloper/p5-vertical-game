@@ -10,7 +10,7 @@ let params = {
 
 const canvas = {
   width: 400,
-  height: 3000
+  height: 800
 }
 
 export function preload() {
@@ -23,9 +23,9 @@ export function setup() {
   if (displayWidth < canvas.width) {
     canvas.width = displayWidth;
   }
-  createCanvas(canvas.width, canvas.height);
+  createCanvas(canvas.width, windowHeight);
 
-  if(Environment.isDev()) {
+  if(Environment.isProd()) {
     let gui = createGuiPanel('Variables GUI');
 
     params.gui = gui;

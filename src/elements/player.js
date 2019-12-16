@@ -62,6 +62,7 @@ export class Player {
     load() {
         this.sprite = createSprite(this.config.width, this.config.height);
 
+
         this.sprite.addAnimation('idle', this.animations.idle.obj);
         this.sprite.setDefaultCollider();
     }
