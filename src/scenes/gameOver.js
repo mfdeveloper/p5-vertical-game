@@ -3,29 +3,18 @@ import { Game } from "./game";
 
 export class Menu {
 
-
-    preload() {
-        this.backgroundImg = loadImage('assets/imgs/scenario/fundomenu.png');
-    }
-    
     setup() {
 
         const btnPosition = this._getBtnPosition();
-
-      
-
-       
-        //background(this.backgroundImg);
+        background(this.sceneArgs.backgroundColor);
 
         this.gui = createGui();
-        this.btn = createButton("Start", 150, height /2 + 130);
-        var fundoImagem = createSprite(width / 2, height/2);
-        fundoImagem.addImage(this.backgroundImg);
+        this.btn = createButton("Start", btnPosition.x, btnPosition.y);
+
     }
 
     draw() {
         
-        drawSprites();
         drawGui();
 
         if (this.btn.isPressed) {
@@ -33,7 +22,6 @@ export class Menu {
 
             this.sceneManager.showScene(Game, this.sceneArgs);
         }
-
     }
 
     windowResized() {

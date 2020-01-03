@@ -1,5 +1,6 @@
 import { Game } from "../scenes/game";
 import { Items } from "./items";
+import { Menu } from "../scenes/menu";
 
 export class Player {
 
@@ -23,17 +24,17 @@ export class Player {
         this.controllers = {
             jump: {
                 up: {
-                    speed: -10,
+                    speed: -7,
                     key: 'W',
                     angle: 90
                 },
                 upAndRight: {
-                    speed: -10,
+                    speed: -10.5,
                     key: 'D',
                     angle: 120
                 },
                 upAndLeft: {
-                    speed: -10,
+                    speed: -10.5,
                     key: 'A',
                     angle: 60
                 }
@@ -53,17 +54,37 @@ export class Player {
 
         // Animations
         this.animations.idle.obj = this.getAnimation('idle');
-
+        this.animationJump = loadAnimation( 'assets/imgs/spritesheets/player/jump/1.png','assets/imgs/spritesheets/player/jump/2.png','assets/imgs/spritesheets/player/jump/3.png','assets/imgs/spritesheets/player/jump/4.png','assets/imgs/spritesheets/player/jump/7.png','assets/imgs/spritesheets/player/jump/8.png');
+        this.animationJumpD = loadAnimation( 'assets/imgs/spritesheets/player/jumpD/1.png','assets/imgs/spritesheets/player/jumpD/2.png','assets/imgs/spritesheets/player/jumpD/3.png','assets/imgs/spritesheets/player/jumpD/4.png','assets/imgs/spritesheets/player/jumpD/5.png','assets/imgs/spritesheets/player/jumpD/6.png');
+        this.animationJumpE = loadAnimation( 'assets/imgs/spritesheets/player/jumpE/1.png','assets/imgs/spritesheets/player/jumpE/2.png','assets/imgs/spritesheets/player/jumpE/3.png','assets/imgs/spritesheets/player/jumpE/4.png','assets/imgs/spritesheets/player/jumpE/5.png','assets/imgs/spritesheets/player/jumpE/6.png');
+        this.animationIdle = loadAnimation( 'assets/imgs/spritesheets/player/idle/1.png','assets/imgs/spritesheets/player/idle/2.png','assets/imgs/spritesheets/player/idle/3.png');
+        this.animationIdleD = loadAnimation( 'assets/imgs/spritesheets/player/idle/1d.png','assets/imgs/spritesheets/player/idle/2d.png','assets/imgs/spritesheets/player/idle/3d.png');
+        this.animationDead = loadAnimation( 'assets/imgs/spritesheets/player/dead/1.png','assets/imgs/spritesheets/player/dead/2.png','assets/imgs/spritesheets/player/dead/3.png','assets/imgs/spritesheets/player/dead/4.png','assets/imgs/spritesheets/player/dead/5.png','assets/imgs/spritesheets/player/dead/6.png','assets/imgs/spritesheets/player/dead/7.png','assets/imgs/spritesheets/player/dead/8.png','assets/imgs/spritesheets/player/dead/9.png');
+        this.animationDeadE = loadAnimation( 'assets/imgs/spritesheets/player/deadE/1.png','assets/imgs/spritesheets/player/deadE/2.png','assets/imgs/spritesheets/player/deadE/3.png','assets/imgs/spritesheets/player/deadE/4.png','assets/imgs/spritesheets/player/deadE/5.png','assets/imgs/spritesheets/player/deadE/6.png','assets/imgs/spritesheets/player/deadE/7.png','assets/imgs/spritesheets/player/deadE/8.png','assets/imgs/spritesheets/player/deadE/9.png');
+       
+        
         // Sound Effects
         this.audio.sfx.jump = loadSound('assets/audio/sfx/player/jump.wav');
         this.audio.sfx.gameOver = loadSound('assets/audio/sfx/player/gameover.wav');
     }
 
     load() {
+        this.animationIdle.frameDelay = 21;
+        this.animationIdleD.frameDelay = 21;
+        this.animationJumpE.frameDelay = 8;
+        this.animationJumpD.frameDelay = 8;
+        this.animationDead.frameDelay = 12;
+        this.animationDeadE.frameDelay = 12;
+        this.animationJump.frameDelay = 12;
+
         this.sprite = createSprite(this.config.width, this.config.height);
-
-
-        this.sprite.addAnimation('idle', this.animations.idle.obj);
+        this.sprite.addAnimation('normal', this.animationIdle);
+        this.sprite.addAnimation('normalD', this.animationIdleD);
+        this.sprite.addAnimation('jumpE', this.animationJumpE);
+        this.sprite.addAnimation('jumpD', this.animationJumpD);
+        this.sprite.addAnimation('jump', this.animationJump);
+        this.sprite.addAnimation('dead', this.animationDead);
+        this.sprite.addAnimation('deadE', this.animationDeadE);
         this.sprite.setDefaultCollider();
     }
 
@@ -104,8 +125,30 @@ export class Player {
         }
 
         if (this.sprite.overlap(scene.spines.sprite)) {
-            this.audio.sfx.gameOver.play();
+            
+
+          this.gameOver(scene);
+            
         }
+
+
+        if (this.sprite.overlap(scene.newEnemy.enemyGroup)) {
+           
+          
+                
+
+            if(this.sprite.position.x < width/2){
+              this.sprite.changeAnimation('deadE');
+            }else{
+              this.sprite.changeAnimation('dead');
+            }
+               this.gameOver(scene);
+           
+        }
+
+        
+
+        
 
         this.sprite.collide(scene.platforms.platformsGroup);
     }
@@ -135,12 +178,23 @@ export class Player {
      */
     inputs(scene) {
 
+            
+
+
         if (this.sprite.overlap(scene.platforms.platformsGroup)) {
 
+            if(this.sprite.position.x > (width/2)){
+                this.sprite.changeAnimation('normalD');
+            }else{
+                this.sprite.changeAnimation('normal');
+            }
+           
+           
             this.sprite.velocity.y = 0;
 
             if (keyWentDown(this.controllers.jump.up.key)) {
                 this.jump(this.controllers.jump.up);
+                this.sprite.changeAnimation('jump');
             }
 
             if (this.sprite.position.x < (width / 2)) {
@@ -148,6 +202,7 @@ export class Player {
                 if (keyWentDown(this.controllers.jump.upAndRight.key)) {
                     this.sprite.velocity.y += this.gravity;
                     this.jump(this.controllers.jump.upAndRight);
+                    this.sprite.changeAnimation('jumpE');
                 }
             }
 
@@ -155,10 +210,12 @@ export class Player {
 
                 if (keyWentDown(this.controllers.jump.upAndLeft.key)) {
                     this.jump(this.controllers.jump.upAndLeft);
+                    this.sprite.changeAnimation('jumpD');
                 }
             }
 
         } else {
+
             this.sprite.velocity.y += this.gravity;
         }
     }
@@ -173,5 +230,19 @@ export class Player {
     jump(config = { speed: 0, key: '', angle: 0 }) {
         this.sprite.addSpeed(config.speed, config.angle);
         this.audio.sfx.jump.play();
+    }
+
+    gameOver(scene){
+        this.sprite.setCollider('circle', 0,0,0);
+        this.audio.sfx.gameOver.play();
+        scene.hud.gameOver({
+            onFinish: () => {
+                //scene.sceneManager.showScene(Menu);
+                location.reload();
+            }
+        });
+
+        //this.sceneManager.showScene(Game, this.sceneArgs);
+        print("gameover");
     }
 }

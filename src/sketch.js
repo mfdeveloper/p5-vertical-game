@@ -2,10 +2,11 @@ import SceneManager from 'p5.scenemanager';
 import { Menu } from "./scenes/menu";
 import { Environment } from "./helpers/environment";
 import 'p5.gui.variables';
+import { Game } from './scenes/game';
 
 let params = {
   backgroundColor: '#000',
-  showColliders: true,
+  showColliders: false,
   showFrameRate: true
 };
 
