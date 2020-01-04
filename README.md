@@ -1,10 +1,14 @@
-# P5js: vertical infinity game
+# P5js: Yodel vertical game
+
+Menu                        |  Screenshot
+:--------------------------:|:-------------------------:
+![](images/yodel-menu.jpeg) | ![](images/yodel-screenshot.jpeg)
 
 This is a boilerplate/template to create a vertical infinity game.
 This is used in a
 Master degree on Game Design course of [UBI](https://www.ubi.pt/)
 
-This project structure used here was based in [generator-p5-webpack](https://github.com/janizde/p5-webpack-yeoman-generator) generated with [Yeoman](https://yeoman.io/)
+This project structure used here was based in [generator-p5-webpack](https://github.com/janizde/p5-webpack-yeoman-generator) generated with [Yeoman](https://yeoman.io/), and upgrated with latest [webpack](https://webpack.js.org/) packages.
 
 
 ### Prerequisites

@@ -29,7 +29,7 @@ export function setup() {
 
   Environment.init();
 
-  if(Environment.isProd()) {
+  if(Environment.isDev()) {
     let gui = createGuiPanel('Variables GUI');
     gui.addObject(params);
   }
