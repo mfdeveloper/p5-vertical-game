@@ -5,35 +5,53 @@ export class Menu {
 
 
     preload() {
-        this.backgroundImg = loadImage('assets/imgs/scenario/fundomenu.png');
+        this.backgroundImg = loadImage('assets/imgs/menu/bg.png');
+        this.logo = loadImage('assets/imgs/menu/logo.png');
+        this.keys = loadImage('assets/imgs/menu/tutorial.png');
+        this.myFont = loadFont('assets/font/helsinki.ttf');
+        
+       
+        // this.soundTrack.loop();
     }
     
     setup() {
-
-        const btnPosition = this._getBtnPosition();
-
-      
-
-       
+        
         //background(this.backgroundImg);
 
         this.gui = createGui();
-        this.btn = createButton("Start", 150, height /2 + 130);
-        var fundoImagem = createSprite(width / 2, height/2);
-        fundoImagem.addImage(this.backgroundImg);
+        this.btn = createButton("Start", 135, height /2 + 180);
+        this.btn.setStyle({
+            fillBg: color("#1F4412"),
+            font: textFont(this.myFont),
+            rounding: 10,
+            textSize: 25,
+            fillLabel: color("#ff9778")
+            
+        });
+        var imgBg = createSprite(width / 2, height/2);
+        imgBg.addImage(this.backgroundImg);
+        var imgLogo = createSprite(width / 2, height/2 -120);
+        imgLogo.addImage(this.logo);
+
+        var imgKeys = createSprite(width / 2, height/2 + 80);
+        imgKeys.addImage(this.keys);
+
+
+       
     }
 
     draw() {
-        
+       
         drawSprites();
         drawGui();
-
+ 
         if (this.btn.isPressed) {
             print(this.btn.label + " is pressed.");
 
             this.sceneManager.showScene(Game, this.sceneArgs);
         }
 
+     
     }
 
     windowResized() {

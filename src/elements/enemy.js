@@ -20,7 +20,7 @@ export class Enemy {
         this.imgEnemy = {};
         this.imgEnemy = loadImage('assets/imgs/enemy/g_1.png');
         
-      this.imgEnemyFalcon = loadImage('assets/imgs/enemy/h1.png');
+        this.imgEnemyFalcon = loadImage('assets/imgs/enemy/h1.png');
     
         this.animationGoat = loadAnimation( 'assets/imgs/enemy/g_2.png', 'assets/imgs/enemy/g_3.png', 'assets/imgs/enemy/g_4.png', 'assets/imgs/enemy/g_5.png');
         this.animationFalcon = loadAnimation( 'assets/imgs/enemy/h1.png', 'assets/imgs/enemy/h2.png');
@@ -44,7 +44,7 @@ export class Enemy {
         this.enemy2.addImage(this.imgEnemy); 
         this.enemy2.addAnimation('moving', this.animationGoat);
         this.enemy2.mirrorX(-1); 
-        this.enemy2.setCollider("circle", 0 ,0, 35);
+        this.enemy2.setCollider("circle", 0 ,0, 29);
        
         this.enemyGroup.add(this.enemy2);
 
@@ -94,13 +94,7 @@ export class Enemy {
         this.enemyGroup.add(this.enemy7);
 
 
-            
-        this.enemy8 = createSprite(width + 100, height + (height/2) - 1980);
-        this.enemy8.addImage(this.imgEnemyFalcon); 
-        this.enemy8.addAnimation('normal', this.animationFalcon);
-        this.enemy8.setCollider("circle", 0 ,0, 20);
-     
-        this.enemyGroup.add(this.enemy8);
+      
 
 
 
@@ -173,10 +167,10 @@ export class Enemy {
 
     
     if(this.enemy5.position.x < 0){
-        this.enemy5.setVelocity(3,0);
+        this.enemy5.setVelocity(2,0);
         this.enemy5.mirrorX(-1);
     }if(this.enemy5.position.x > (width)){
-        this.enemy5.setVelocity(-3,0);
+        this.enemy5.setVelocity(-2,0);
         this.enemy5.mirrorX(1);
     }
 
@@ -197,14 +191,7 @@ export class Enemy {
     }
 
 
-    if(this.enemy8.position.x < 0){
-        this.enemy8.setVelocity(4,0);
-        this.enemy8.mirrorX(-1);
-    }if(this.enemy8.position.x > (width)){
-        this.enemy8.setVelocity(-4,0);
-        this.enemy8.mirrorX(1);
-    }
-
+ 
 
 if(this.enemy9.position.y >= playerY){
     this.enemy9.setVelocity(5,0);
@@ -223,7 +210,7 @@ if(this.enemy10.position.x < 0){
 
 
 if(this.enemy11.position.y >= playerY){
-    this.enemy11.setVelocity(-5,0);
+    this.enemy11.setVelocity(-3,0);
     this.enemy11.changeAnimation('moving');   
 }
 

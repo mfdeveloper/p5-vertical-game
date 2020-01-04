@@ -86,6 +86,7 @@ export class Player {
         this.sprite.addAnimation('dead', this.animationDead);
         this.sprite.addAnimation('deadE', this.animationDeadE);
         this.sprite.setDefaultCollider();
+    
     }
 
     /**
@@ -100,6 +101,7 @@ export class Player {
         this.sceneInteractions(scene);
 
         this.inputs(scene);
+        
     }
 
     touchEnded() {

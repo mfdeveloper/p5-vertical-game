@@ -54,6 +54,7 @@ export class Game {
 
     preload() {
 
+       
         this.backgroundImg = loadImage('assets/imgs/scenario/back.jpg');
         this.spines.img = loadImage('assets/imgs/scenario/spines.png');
 
@@ -63,13 +64,14 @@ export class Game {
         this.platforms.preload();
         this.items.preload();
         this.newEnemy.preload();
-     
+
+       
     }
 
     setup() {
 
-      
-             
+          
+    
         
         var fundoImagem = createSprite(width / 2, 1);
         fundoImagem.addImage(this.backgroundImg);
@@ -121,7 +123,7 @@ export class Game {
                   .changeConfig(this.sceneArgs);
 
        
-        this.spines.sprite.velocity.y = -1.7;
+        this.spines.sprite.velocity.y = -1.3;
        camera.position.y = this.spines.sprite.position.y -((height/2) + 50);
                     this.platforms.moveWalls(this.spines.sprite.velocity.y);
 
@@ -132,4 +134,5 @@ export class Game {
         drawSprites();
         
     }
+    
 }

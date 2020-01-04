@@ -26,10 +26,13 @@ export class Platforms {
         this.animationBeer.frameDelay = 20;
       
         this.audioBeer = loadSound('assets/audio/sfx/player/beer.mp3');
+        this.audioCrack = loadSound('assets/audio/sfx/plataforma/crack.wav');
+          
+        
     }
 
     draw() {
-
+       
         var beer = createSprite(200,height + ((height/2) - 3300));
         //beer.addImage("beer",this.imgBeer);
         beer.setCollider("rectangle", -15,50, 100, 100);
@@ -332,7 +335,11 @@ export class Platforms {
         if( plataforma.getAnimationLabel() == "beer"){
    
             scene.hud.pickBeer();
-            this.audioBeer.play();
+
+            if(this.audioBeer.isPlaying() == false){
+                this.audioBeer.play();
+            }
+            
             setTimeout(function() { 
                 //scene.sceneManager.showScene(Menu);
                 location.reload();
@@ -341,18 +348,27 @@ export class Platforms {
         }
        if( plataforma.getAnimationLabel() == "pDown"){
         //plataforma.remove();
-        
-       //plataforma.remove();
-       //this.plataforma.changeAnimation('plataformE');
-        setTimeout(function() { 
+
+        if(this.audioCrack.isPlaying() == false){
+            this.audioCrack.play();
+        }
+    
+        setTimeout(function() {
+           
             plataforma.remove();
-        }, 1500 ); 
-      
+        }, 1700 ); 
+        
        
         
         //plataforma.setCollider("circle", 1, 1, 1);
        }
       
+      
+    
+    
+     
+      
+
     }
 
     
