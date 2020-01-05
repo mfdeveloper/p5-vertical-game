@@ -70,15 +70,14 @@ export class Game {
 
     setup() {
 
-          
-    
-        
         var fundoImagem = createSprite(width / 2, 1);
         fundoImagem.addImage(this.backgroundImg);
+
+        this.hud.load();
+
         this.player.load();
         this.items.load();
             
-
         this.newEnemy.createEnemy();
         
 
@@ -99,6 +98,7 @@ export class Game {
 
     draw() {
         //background("red");
+        // background(this.backgroundImg);
 
         let self = this;
         this.hud.showScore();

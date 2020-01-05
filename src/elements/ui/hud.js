@@ -9,14 +9,14 @@ export class Hud {
         this.scoreValue = 0;
         this.timerValue = 0;
         this.config = config;
-
-        this.imgHud(config.bgImg);
-        this.scoreUi(config.score);
-        this.timerUi(config.timer);
-      
     }
 
-  
+
+    load() {
+        this.imgHud(this.config.bgImg);
+        this.scoreUi(this.config.score);
+        this.timerUi(this.config.timer);
+    }
 
     scoreUi(config = {
         label: 'Score',

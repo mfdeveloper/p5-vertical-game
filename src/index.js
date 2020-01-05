@@ -17,13 +17,13 @@ import * as sketchHooks from './sketch';
     });
 })(window);
 
-const sketch = p => {
-    for (const hook in sketchHooks) {
-        if (sketchHooks[hook] == 'function') {
-            p[hook] = sketchHooks[hook];
-        }
-    }
-}
+// const sketch = p => {
+//     for (const hook in sketchHooks) {
+//         if (sketchHooks[hook] == 'function') {
+//             p[hook] = sketchHooks[hook];
+//         }
+//     }
+// }
 
-const p5Instance = new p5(sketch);
-export default p5Instance;
+// const p5Instance = new p5(sketch);
+// export default p5Instance;
