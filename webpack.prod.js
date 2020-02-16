@@ -14,7 +14,7 @@ module.exports = merge(common, {
             DEBUG: false
         }),
         new HtmlWebpackPlugin({
-            title: 'Prod P5 Webpack'
+            title: 'Yodel Climber'
         })
     ]
 });

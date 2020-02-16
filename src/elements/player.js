@@ -142,9 +142,9 @@ export class Player {
             if(this.sprite.position.x < width/2){
               this.sprite.changeAnimation('deadE');
             }else{
-              this.sprite.changeAnimation('dead');
+            this.sprite.changeAnimation('dead');
             }
-               this.gameOver(scene);
+            this.gameOver(scene);
            
         }
 
@@ -194,21 +194,17 @@ export class Player {
            
             this.sprite.velocity.y = 0;
 
-            if (keyWentDown(this.controllers.jump.up.key)) {
+            if (keyWentDown(this.controllers.jump.up.key) && !keyWentDown(this.controllers.jump.upAndRight.key) && !keyWentDown(this.controllers.jump.upAndLeft.key)) {
                 this.jump(this.controllers.jump.up);
                 this.sprite.changeAnimation('jump');
-            }
-
-            if (this.sprite.position.x < (width / 2)) {
+            }else if (this.sprite.position.x < (width / 2)) {
 
                 if (keyWentDown(this.controllers.jump.upAndRight.key)) {
                     this.sprite.velocity.y += this.gravity;
                     this.jump(this.controllers.jump.upAndRight);
                     this.sprite.changeAnimation('jumpE');
                 }
-            }
-
-            if (this.sprite.position.x > (width / 2)) {
+            }else if (this.sprite.position.x > (width / 2)) {
 
                 if (keyWentDown(this.controllers.jump.upAndLeft.key)) {
                     this.jump(this.controllers.jump.upAndLeft);

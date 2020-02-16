@@ -44,7 +44,7 @@ module.exports = merge(common, {
       }),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
-        title: 'Dev P5 Webpack'
+        title: 'Yodel Climber'
       })
     ]
 });

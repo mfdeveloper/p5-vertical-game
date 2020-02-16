@@ -8,7 +8,6 @@ export class Menu {
         this.backgroundImg = loadImage('assets/imgs/menu/bg.png');
         this.logo = loadImage('assets/imgs/menu/logo.png');
         this.keys = loadImage('assets/imgs/menu/tutorial.png');
-        this.myFont = loadFont('assets/font/helsinki.ttf');
         
        
         // this.soundTrack.loop();
@@ -22,7 +21,6 @@ export class Menu {
         this.btn = createButton("Start", 135, height /2 + 180);
         this.btn.setStyle({
             fillBg: color("#1F4412"),
-            font: textFont(this.myFont),
             rounding: 10,
             textSize: 25,
             fillLabel: color("#ff9778")

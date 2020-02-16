@@ -30,8 +30,8 @@ export function setup() {
   Environment.init();
 
   if(Environment.isDev()) {
-    let gui = createGuiPanel('Variables GUI');
-    gui.addObject(params);
+   // let gui = createGuiPanel('Variables GUI');
+   // gui.addObject(params);
   }
   
   let mgr = new SceneManager();
