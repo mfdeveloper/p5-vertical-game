@@ -15,7 +15,21 @@ const canvas = {
   height: 800
 }
 
+let mgr = new SceneManager({
+  scenes: [
+    Menu,
+    Game
+  ]
+});
+
 export function preload() {
+
+  mgr = new SceneManager({
+    scenes: [
+      Menu,
+      Game
+    ]
+  });
 
   // set the global sound formats
   soundFormats('mp3', 'wav');
@@ -34,7 +48,6 @@ export function setup() {
    // gui.addObject(params);
   }
   
-  let mgr = new SceneManager();
   mgr.wire();
   mgr.showScene(Menu, params);
 

@@ -16,9 +16,6 @@ export class Items {
 
     load() {
 
-
-      
-
         const animation = {
             name: 'normal',
             frames: ['assets/imgs/items/sausage-00.png', 'assets/imgs/items/sausage-01.png', 'assets/imgs/items/sausage-02.png', 'assets/imgs/items/sausage-03.png', 'assets/imgs/items/sausage-02.png','assets/imgs/items/sausage-01.png','assets/imgs/items/sausage-00.png']
