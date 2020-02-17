@@ -10,6 +10,8 @@ import 'p5/lib/addons/p5.sound';
 
 import * as sketchHooks from './sketch';
 
+import "./css/style.css";
+
 // Attach everything that is exported from sketch to window
 (w => {
     Object.keys(sketchHooks).forEach(hook => {

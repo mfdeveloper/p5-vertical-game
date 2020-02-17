@@ -44,7 +44,10 @@ module.exports = merge(common, {
       }),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
-        title: 'Yodel Climber'
+        title: 'Yodel Climber',
+        meta: {
+          viewport: "user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,shrink-to-fit=no"
+        }
       })
     ]
 });

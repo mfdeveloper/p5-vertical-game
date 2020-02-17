@@ -35,7 +35,7 @@ export class Environment {
                 y: height - 10
             },
             topRight: {
-                x: width - 70,
+                x: width - 90,
                 y: 20
             }
         };
