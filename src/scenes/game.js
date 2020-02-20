@@ -9,6 +9,16 @@ export class Game {
 
     constructor() {
 
+        this.touched = {
+            x: 0,
+            y: 0
+        };
+
+        this.swipe = {
+            x: 0,
+            y: 0
+        };
+
         this.player = new Player({
             width: 50,
             height: height + (height / 2) - 100,
@@ -48,7 +58,6 @@ export class Game {
 
     preload() {
 
-
         this.backgroundImg = loadImage('assets/imgs/scenario/back.jpg');
         this.spines.img = loadImage('assets/imgs/scenario/spines.png');
 
@@ -61,6 +70,10 @@ export class Game {
     }
 
     setup() {
+
+        if (this.sceneArgs.btnPressed) {
+            delete this.sceneArgs.btnPressed;
+        }
 
         this.hud.setup();
 
@@ -115,5 +128,35 @@ export class Game {
 
         drawSprites();
     }
+
+    /**
+     * Touch end event callback
+     *
+     * @param   {TouchEvent}  event  An touch event object with touched target
+     *
+     * @return  {[type]}         [return description]
+     */
+    touchEnded(event, scene) {
+
+        if ((!this.sceneArgs.btnPressed) && (this.swipe.x == 0 && this.swipe.y == 0)) {
+            
+            this.touched.x = mouseX;
+            this.touched.y = mouseY;
+        }
+        
+        // Prevent default mouse behaviour
+        return false;
+    }
+    
+    /**
+     * @todo Store start and endPos information to detect if a swipe or tap
+     */
+    // touchMoved() {
+    //     this.swipe.x = mouseX;
+    //     this.swipe.y = mouseY;
+        
+    //     // Prevent default mouse behaviour
+    //     return false;
+    // }
 
 }

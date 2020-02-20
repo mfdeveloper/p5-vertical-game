@@ -9,9 +9,9 @@ export class Menu {
         this.backgroundImg = loadImage('assets/imgs/menu/bg.png');
         this.logo = loadImage('assets/imgs/menu/logo.png');
         this.keys = loadImage('assets/imgs/menu/tutorial.png');
-        this.track = loadSound('assets/audio/tracks/menu/bg.mp3', () => {
-            this.track.setVolume(0.1);
-            this.track.loop();
+        this.soundTrack = loadSound('assets/audio/tracks/menu/bg.mp3', () => {
+            this.soundTrack.setVolume(0.1);
+            this.soundTrack.loop();
         });
 
     }
@@ -46,9 +46,10 @@ export class Menu {
 
         if (this.btn.isPressed) {
             print(this.btn.label + " is pressed.");
+            this.sceneArgs.btnPressed = true;
 
             this.sceneManager.showScene(Game, this.sceneArgs);
-            this.track.stop();
+            this.soundTrack.stop();
         }
 
     }

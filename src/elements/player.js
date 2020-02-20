@@ -104,11 +104,11 @@ export class Player {
         
     }
 
-    touchEnded() {
-        if (mouseY > this.sprite.position.y) {
-            this.jump(this.controllers.jump.up);
-        }
-    }
+    // touchEnded() {
+    //     if (mouseY > this.sprite.position.y) {
+    //         this.jump(this.controllers.jump.up);
+    //     }
+    // }
 
     /**
      * Check player interactions with a scene (limit bounds, spikes to death...)
@@ -180,8 +180,7 @@ export class Player {
      */
     inputs(scene) {
 
-            
-
+        let touchDistance = 0;
 
         if (this.sprite.overlap(scene.platforms.platformsGroup)) {
 
@@ -191,29 +190,44 @@ export class Player {
                 this.sprite.changeAnimation('normal');
             }
            
-           
             this.sprite.velocity.y = 0;
 
-            if (keyWentDown(this.controllers.jump.up.key) && !keyWentDown(this.controllers.jump.upAndRight.key) && !keyWentDown(this.controllers.jump.upAndLeft.key)) {
+            if (scene.touched.x > 0 || scene.touched.y > 0) {
+                touchDistance = dist(this.sprite.position.x, this.sprite.position.y, scene.touched.x, scene.touched.y);
+            }
+
+            if ((keyWentDown(this.controllers.jump.up.key) 
+                && !keyWentDown(this.controllers.jump.upAndRight.key) 
+                && !keyWentDown(this.controllers.jump.upAndLeft.key))) {
+
                 this.jump(this.controllers.jump.up);
                 this.sprite.changeAnimation('jump');
+                
+                // scene.touched.x = 0;
+                // scene.touched.y = 0;
+
             }else if (this.sprite.position.x < (width / 2)) {
 
-                if (keyWentDown(this.controllers.jump.upAndRight.key)) {
+                if (keyWentDown(this.controllers.jump.upAndRight.key) || (touchDistance > 500 && scene.touched.x > this.sprite.position.x)) {
                     this.sprite.velocity.y += this.gravity;
                     this.jump(this.controllers.jump.upAndRight);
                     this.sprite.changeAnimation('jumpE');
+                    
+                    scene.touched.x = 0;
+                    scene.touched.y = 0;
                 }
             }else if (this.sprite.position.x > (width / 2)) {
 
-                if (keyWentDown(this.controllers.jump.upAndLeft.key)) {
+                if (keyWentDown(this.controllers.jump.upAndLeft.key) || (touchDistance > 500 && scene.touched.x < this.sprite.position.x)) {
                     this.jump(this.controllers.jump.upAndLeft);
                     this.sprite.changeAnimation('jumpD');
+
+                    scene.touched.x = 0;
+                    scene.touched.y = 0;
                 }
             }
 
         } else {
-
             this.sprite.velocity.y += this.gravity;
         }
     }
